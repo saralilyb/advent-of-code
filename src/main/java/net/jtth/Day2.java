@@ -33,7 +33,7 @@ public class Day2 {
         .sum();
   }
 
-  public GameRecord playRpsGame21(Move m1, Move m2) throws InvalidGameStateException {
+  public GameRecord playRpsGame(Move m1, Move m2) throws InvalidGameStateException {
     Move moveILoseWith = this.moveBeatsMove.get(m1);
     Move moveIWinTo = this.moveBeatsMove.get(m2);
     GameResult result;
@@ -50,9 +50,7 @@ public class Day2 {
     return new GameRecord(m1, m2, result, score);
   }
 
-  private GameRecord playRpsGame22(Move m1, GameResult desiredResult)
-      throws InvalidGameStateException {
-
+  private Move getMoveForDesiredResult(Move m1, GameResult desiredResult) {
     Move myMove = m1;
     switch (desiredResult) {
       case WIN -> myMove = this.moveBeatsMove.entrySet().stream()
@@ -62,7 +60,15 @@ public class Day2 {
       }
       case LOST -> myMove = this.moveBeatsMove.get(m1);
     }
-    return this.playRpsGame21(m1, myMove);
+    return myMove;
+  }
+
+  private Move getMyMove(Move m1, String myData, boolean question1) {
+    if (question1) {
+      return m1;
+    } else {
+      return getMoveForDesiredResult(m1, this.desiredResultsEncoding.get(myData));
+    }
   }
 
   private List<GameRecord> parseDataIntoGames(String dataFile, boolean question1) {
@@ -74,14 +80,8 @@ public class Day2 {
         List<String> data = List.of(scanner.nextLine().split(" "));
         GameRecord gameRecord;
         Move m1 = this.encoding.get(data.get(0));
-        if (question1) {
-          Move m2 = this.encoding.get(data.get(1));
-          gameRecord = playRpsGame21(m1, m2);
-          _gameRecords.add(gameRecord);
-        } else {
-          GameResult desiredResult = this.desiredResultsEncoding.get(data.get(1));
-          gameRecord = playRpsGame22(m1, desiredResult);
-        }
+        Move m2 = this.getMyMove(m1, data.get(1), question1);
+        gameRecord = playRpsGame(m1, m2);
         _gameRecords.add(gameRecord);
       }
       scanner.close();

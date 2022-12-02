@@ -33,7 +33,7 @@ public class Day2 {
         .sum();
   }
 
-  public GameRecord playRpsGame(Move m1, Move m2) throws InvalidGameStateException {
+  private GameRecord playRpsGame(Move m1, Move m2) throws InvalidGameStateException {
     Move moveILoseWith = this.moveBeatsMove.get(m1);
     Move moveIWinTo = this.moveBeatsMove.get(m2);
     GameResult result;

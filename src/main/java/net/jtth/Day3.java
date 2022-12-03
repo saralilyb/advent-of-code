@@ -134,7 +134,7 @@ public final class Day3 {
   private Map<Character, Long> initScores() {
     List<Character> alphabet = makeAlphabet();
 //    keep these separate in case we have to change how the scores work
-    List<Long> scores = LongStream.range(1, alphabet.size() + 1).boxed().toList();
+    List<Long> scores = LongStream.rangeClosed(1, alphabet.size()).boxed().toList();
     return IntStream.range(0, Math.min(alphabet.size(), scores.size()))
         .boxed()
         .collect(Collectors.toMap(alphabet::get, scores::get));

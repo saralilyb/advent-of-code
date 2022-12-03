@@ -13,5 +13,9 @@ public class Main {
     System.out.println("\n2-1 " + day21.getMyHighScore());
     Day2 day22 = new Day2("src/main/resources/day2.dat", false);
     System.out.println("\n2-2 " + day22.getMyHighScore());
+
+    Day3 day3 = new Day3("src/main/resources/day3.dat");
+    System.out.println("\n3-1 " + day3.printScore());
+    System.out.println("\n3-2 " + day3.printGroupScore());
   }
 }

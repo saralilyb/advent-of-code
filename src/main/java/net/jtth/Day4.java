@@ -11,7 +11,6 @@ public class Day4 {
   private Long sumOfOverlappingAssignmentPairs = 0L;
 
   public Day4(String dataFile) {
-
     parseData(dataFile);
   }
 

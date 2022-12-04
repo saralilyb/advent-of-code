@@ -11,6 +11,13 @@
       <scope>provided</scope>
       <version>1.18.24</version>
     </dependency>
+
+    <dependency>
+      <artifactId>commons-lang3</artifactId>
+      <groupId>org.apache.commons</groupId>
+      <version>3.12.0</version>
+    </dependency>
+
   </dependencies>
   <groupId>net.jtth</groupId>
   <modelVersion>4.0.0</modelVersion>

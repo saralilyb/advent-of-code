@@ -17,5 +17,9 @@ public class Main {
     Day3 day3 = new Day3("src/main/resources/day3.dat");
     System.out.println("\n3-1 " + day3.printScore());
     System.out.println("\n3-2 " + day3.printGroupScore());
+
+    Day4 day4 = new Day4("src/main/resources/day4.dat");
+    System.out.println("\n4-1 " + day4.printSumOfFullyContainedAssignmentPairs());
+    System.out.println("\n4-2 " + day4.printSumOfOverlappingAssignmentPairs());
   }
 }

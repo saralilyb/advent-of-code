@@ -16,29 +16,18 @@ import lombok.extern.java.Log;
 @Log
 public class Day5 {
 
-  private static List<Pile> piles;
+  private List<Pile> piles;
   private String stackTops;
 
   public Day5(String dataFile) {
     parseFile(dataFile);
   }
 
-  private static List<Pile> transposeRowsIntoPiles(final List<List<String>> rows) {
-    List<List<String>> transposedList = transposeListOfLists(rows);
-
-    List<Pile> tempPiles = new ArrayList<>();
-    for (List<String> column : transposedList) {
-      tempPiles.add(new Pile(column));
-    }
-
-    return tempPiles;
-  }
-
   // https://stackoverflow.com/a/45490275/1576325
   // Don't write transpositions yourself, who cares, this should be in a library.
   // I cleaned this up but really why isn't this in Commons it's in every stdlib.
   // There's probably a way to do this more efficiently with Vectors.
-  private static <T> List<List<T>> transposeListOfLists(List<List<T>> list) {
+  public static <T> List<List<T>> transposeListOfLists(List<List<T>> list) {
     final int N = list.stream().mapToInt(List::size).max().orElse(-1);
     List<Iterator<T>> iterList = list.stream().map(List::iterator).toList();
     return IntStream.range(0, N)
@@ -49,16 +38,28 @@ public class Day5 {
         .collect(Collectors.toList());
   }
 
-  private static void moveCrates(final int count, final int fromPileIdx, final int toPileIdx)
+  private List<Pile> transposeRowsIntoPiles(List<List<String>> rows) {
+    List<List<String>> transposedList = transposeListOfLists(rows);
+
+    List<Pile> tempPiles = new ArrayList<>();
+    for (List<String> column : transposedList) {
+      tempPiles.add(new Pile(column));
+    }
+
+    return tempPiles;
+  }
+
+  private void moveCrates(int count, int fromPileIdx, int toPileIdx)
       throws EmptyStackException {
     Pile fromPile = piles.get(fromPileIdx);
     Pile toPile = piles.get(toPileIdx);
-    for (int c = 0; c < count; c++) {
+    log.info("fromPile " + fromPile.getStack() + " toPile " + toPile.getStack());
+    for (int c = count; c >= 1; c--) {
       toPile.push(fromPile.pop());
     }
   }
 
-  private static String readStackTops(final List<Pile> piles) {
+  private String readStackTops(List<Pile> piles) {
     StringBuilder stringBuilder = new StringBuilder();
     for (Pile pile : piles) {
       stringBuilder.append(pile.peek());
@@ -72,6 +73,9 @@ public class Day5 {
       Scanner scanner = new Scanner(new FileReader(dataFile));
 
       // assemble rows, ignoring numerical column enumeration
+      // FIXME: this is where the bug is. I'm not reading in the top parts of
+      //   the stacks correctly. It's not aligned right so it gets transposed poorly.
+      //   I need to scan for blanks or something.
       scanner.useDelimiter("[^\\n|\\w]+|\\d");
       List<List<String>> rows = new ArrayList<>();
       List<String> row = new ArrayList<>();
@@ -87,7 +91,7 @@ public class Day5 {
         }
       }
 
-      scanner.nextLine(); // skip
+      scanner.nextLine(); // skip column enumeration
 
       piles = transposeRowsIntoPiles(rows);
 
@@ -95,10 +99,10 @@ public class Day5 {
       scanner.useDelimiter("\\D+");
       while (scanner.hasNext() && scanner.hasNextLine()) {
         int count = scanner.nextInt();
-        // piles are 1-indexed
         int fromPileIdx = scanner.nextInt();
         int toPileIdx = scanner.nextInt();
         log.info("move " + count + " from " + fromPileIdx + " to " + toPileIdx);
+        // piles are 1-indexed
         moveCrates(count, fromPileIdx - 1, toPileIdx - 1);
       }
       stackTops = readStackTops(piles);
@@ -116,7 +120,7 @@ public class Day5 {
   private static final class Pile {
 
     @Getter
-    private final Stack<String> stack;
+    private Stack<String> stack;
 
     public Pile(List<String> listOfElements) {
       stack = new Stack<>();
@@ -135,9 +139,6 @@ public class Day5 {
       return stack.peek();
     }
 
-    public int size() {
-      return stack.size();
-    }
   }
 
 }

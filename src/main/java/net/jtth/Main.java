@@ -21,5 +21,8 @@ public class Main {
     Day4 day4 = new Day4("src/main/resources/day4.dat");
     System.out.println("\n4-1 " + day4.printSumOfFullyContainedAssignmentPairs());
     System.out.println("\n4-2 " + day4.printSumOfOverlappingAssignmentPairs());
+
+    Day5 day5 = new Day5("src/main/resources/day5.dat");
+    System.out.println(("\n5-1 " + day5.printStackTops()));
   }
 }

@@ -17,6 +17,12 @@
       <groupId>org.apache.commons</groupId>
       <version>3.12.0</version>
     </dependency>
+    <dependency>
+      <artifactId>junit-jupiter</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>5.9.0</version>
+    </dependency>
 
   </dependencies>
   <groupId>net.jtth</groupId>

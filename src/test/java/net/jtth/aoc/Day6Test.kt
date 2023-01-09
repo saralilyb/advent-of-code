@@ -1,4 +1,4 @@
-package net.jtth
+package net.jtth.aoc
 
 import org.junit.jupiter.api.Test
 import java.io.StringReader

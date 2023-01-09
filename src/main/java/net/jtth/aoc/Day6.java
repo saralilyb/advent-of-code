@@ -1,4 +1,4 @@
-package net.jtth;
+package net.jtth.aoc;
 
 import java.io.Reader;
 import java.util.List;

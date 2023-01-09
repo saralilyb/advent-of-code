@@ -1,4 +1,4 @@
-package net.jtth;
+package net.jtth.aoc2022;
 
 import java.io.FileReader;
 import java.io.IOException;

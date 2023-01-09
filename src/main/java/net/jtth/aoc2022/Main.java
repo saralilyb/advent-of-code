@@ -1,10 +1,37 @@
-package net.jtth;
+package net.jtth.aoc2022;
 
+import clojure.java.api.Clojure;
+import clojure.lang.IFn;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.util.concurrent.Callable;
+import lombok.SneakyThrows;
 
 public class Main {
 
+  public static Object callClojure(String ns, String fn) throws Exception {
+    // load Clojure lib. See https://clojure.github.io/clojure/javadoc/clojure/java/api/Clojure.html
+    IFn require = Clojure.var("clojure.core", "require");
+    require.invoke(Clojure.read(ns));
+
+    return ((Callable) Clojure.var(ns, fn)).call();
+  }
+
+  @SneakyThrows
   public static void main(String[] args) throws IOException {
+    // Clojure fns are callable
+    Callable fn = (Callable) callClojure("net.jtth.aoc2022.impl", "create-hello-fn");
+    System.out.println("fn says " + fn.call());
+
+    // Clojure can implement interfaces
+    FileFilter filter = (FileFilter) callClojure("net.jtth.aoc22.impl", "create-never-filter");
+    System.out.println("file filter returns " + filter.accept(new File("canttouchthis")));
+
+    // Clojure can extend classes
+    Object o = callClojure("net.jtth.aoc22.impl", "create-timestamped-object");
+    System.out.println("object toString returns " + o);
+
     Day1 day1 = new Day1("src/main/resources/day1.dat");
     System.out.println("1-1\n " + day1.getBestSum());
     System.out.println("\n1-2 " + day1.getTop3SumsSummed());

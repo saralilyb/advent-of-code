@@ -1,4 +1,4 @@
-package net.jtth;
+package net.jtth.aoc2022;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

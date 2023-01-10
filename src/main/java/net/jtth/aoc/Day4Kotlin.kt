@@ -1,4 +1,4 @@
-package net.jtth.aoc2022
+package net.jtth.aoc
 
 import org.apache.commons.lang3.Range
 import java.io.FileReader

@@ -1,4 +1,4 @@
-package net.jtth.aoc2022;
+package net.jtth.aoc;
 
 import java.io.FileReader;
 import java.util.Scanner;

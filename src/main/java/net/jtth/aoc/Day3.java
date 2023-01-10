@@ -1,4 +1,4 @@
-package net.jtth.aoc2022;
+package net.jtth.aoc;
 
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public final class Day3 {
   }
 
   private Set<Character> stringToCharacterSet(String s) {
-    return s.chars().mapToObj((v) -> (char) v).collect(Collectors.toSet());
+    return s.chars().mapToObj(v -> (char) v).collect(Collectors.toSet());
   }
 
   private Character sharedItemInElfGroup(List<String> elfGroupItems) throws Exception {
@@ -119,11 +119,11 @@ public final class Day3 {
   private List<Character> makeAlphabet() {
     List<Character> lowercase = IntStream.rangeClosed('a', 'z')
         .boxed()
-        .map((v) -> (char) (int) v)
+        .map(v -> (char) (int) v)
         .toList();
     List<Character> uppercase = IntStream.rangeClosed('A', 'Z')
         .boxed()
-        .map((v) -> (char) (int) v)
+        .map(v -> (char) (int) v)
         .toList();
     List<Character> union = new ArrayList<>();
     union.addAll(lowercase);

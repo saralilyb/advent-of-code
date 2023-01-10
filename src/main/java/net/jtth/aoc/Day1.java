@@ -1,4 +1,4 @@
-package net.jtth.aoc2022;
+package net.jtth.aoc;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public final class Day1 {
     StreamTokenizer tokenizer = new StreamTokenizer(reader);
     tokenizer.eolIsSignificant(true);
 
-    List<Elf> elves = new ArrayList<>();
+    List<Elf> elveses = new ArrayList<>();
 
     int currentToken = tokenizer.nextToken();
 
@@ -54,7 +54,7 @@ public final class Day1 {
       } else if (tokenizer.ttype == StreamTokenizer.TT_EOL) {
         if (lastLineWasEOL) {
           elf.sumData();
-          elves.add(elf);
+          elveses.add(elf);
           elf = new Elf();
           lastLineWasEOL = false;
         } else {
@@ -65,7 +65,7 @@ public final class Day1 {
       currentToken = tokenizer.nextToken();
     }
 
-    return elves;
+    return elveses;
   }
 
   private static final class Elf {

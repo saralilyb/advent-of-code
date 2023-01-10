@@ -1,4 +1,4 @@
-package net.jtth.aoc2022;
+package net.jtth.aoc;
 
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Stack;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.Getter;
 import lombok.extern.java.Log;
@@ -34,8 +33,8 @@ public class Day5 {
         .mapToObj(n -> iterList.stream()
             .filter(Iterator::hasNext)
             .map(Iterator::next)
-            .collect(Collectors.toList()))
-        .collect(Collectors.toList());
+            .toList())
+        .toList();
   }
 
   private List<Pile> transposeRowsIntoPiles(List<List<String>> rows) {
